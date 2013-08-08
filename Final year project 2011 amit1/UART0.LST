@@ -1,0 +1,243 @@
+ARM GAS  L:\Final year project 2011 amit\UART0.asm 			page 1
+
+
+   1              	.file "L:\Final year project 2011 amit\UART0.c"
+   2              	
+   3              		.global InitUart0
+   4              	
+   5              		.text
+   6              	
+   7              		.p2align 2
+   8              	
+   9              		.text
+  10              	InitUart0:
+  11 0000 0DC0A0E1 		mov	R12, sp
+  12 0004 30582DE9 		stmfd	sp!, {R4, R5, R11, R12, lr}
+  13 0008 0DB0A0E1 		mov R11,R13
+  14              	
+  15              	@line 9,0	{
+  16              	
+  17              	
+  18              	@line 10,0		PINSEL0 = 0x00000005 ;
+  19              	
+  20 000c 50409FE5 		ldr	R4, LIT.InitUart00+0
+  21 0010 0550A0E3 		mov	R5, #5
+  22              	
+  23 0014 005084E5 		str	R5, [R4]
+  24              	
+  25              	@line 14,0		U0LCR=0x83;	
+  26              	
+  27 0018 48409FE5 		ldr	R4, LIT.InitUart00+4
+  28 001c 8350A0E3 		mov	R5, #131
+  29              	
+  30 0020 005084E5 		str	R5, [R4]
+  31              	
+  32              	@line 17,0		VPBDIV=0x01;	
+  33              	
+  34 0024 40409FE5 		ldr	R4, LIT.InitUart00+8
+  35 0028 0150A0E3 		mov	R5, #1
+  36              	
+  37 002c 005084E5 		str	R5, [R4]
+  38              	
+  39              	@line 19,0		U0DLL=DIVISOR&0xFF;	
+  40              	
+  41 0030 38409FE5 		ldr	R4, LIT.InitUart00+12
+  42 0034 2750A0E3 		mov	R5, #39
+  43              	
+  44 0038 005084E5 		str	R5, [R4]
+  45              	
+  46              	@line 21,0		U0DLM=DIVISOR>>8;	
+  47              	
+  48 003c 30409FE5 		ldr	R4, LIT.InitUart00+16
+  49 0040 0050A0E3 		mov	R5, #0
+  50              	
+  51 0044 005084E5 		str	R5, [R4]
+  52              	
+  53              	@line 24,0		U0LCR=0x03 ;	
+  54              	
+  55 0048 18409FE5 		ldr	R4, LIT.InitUart00+4
+  56 004c 0350A0E3 		mov	R5, #3
+  57              	
+ARM GAS  L:\Final year project 2011 amit\UART0.asm 			page 2
+
+
+  58 0050 005084E5 		str	R5, [R4]
+  59              	
+  60              	@line 27,0		U0FCR=0x05 ;
+  61              	
+  62 0054 1C409FE5 		ldr	R4, LIT.InitUart00+20
+  63 0058 0550A0E3 		mov	R5, #5
+  64              	
+  65 005c 005084E5 		str	R5, [R4]
+  66              	
+  67              	@line 28,0	}
+  68              	
+  69              	L.1:
+  70 0060 30A89BE8 		ldmfd	R11, {R4, R5, R11, sp, pc}
+  71              	
+  72              		.p2align 2
+  73              	LIT.InitUart00:
+  74 0064 00C002E0 		.word 0xE002C000
+  75 0068 0CC000E0 		.word 0xE000C00C
+  76 006c 00C11FE0 		.word 0xE01FC100
+  77 0070 00C000E0 		.word 0xE000C000
+  78 0074 04C000E0 		.word 0xE000C004
+  79 0078 08C000E0 		.word 0xE000C008
+  80              	
+  81              	
+  82              	
+  83              		.global putchar
+  84              		@------------- parameters -----------------
+  85              		@ch -- R0
+  86              	
+  87              		.p2align 2
+  88              	
+  89              		.text
+  90              	putchar:
+  91 007c 0DC0A0E1 		mov	R12, sp
+  92 0080 30582DE9 		stmfd	sp!, {R4, R5, R11, R12, lr}
+  93 0084 0DB0A0E1 		mov R11,R13
+  94              	
+  95              	@line 30,0	{
+  96              	
+  97              	
+  98              	@line 31,5		if (ch=='\n')
+  99              	
+ 100 0088 004CA0E1 		mov	R4,R0,lsl #8*(4-1)
+ 101 008c 444CA0E1 		mov	R4,R4,asr #8*(4-1)
+ 102 0090 0A50A0E3 		mov	R5, #10
+ 103              	
+ 104 0094 050054E1 		cmp	R4,R5
+ 105 0098 2F00001A 		bne	L.9
+ 106              	
+ 107              	@line 32,1		{
+ 108              	
+ 109              	L.5:
+ 110              	
+ 111              	@line 34,54			while (!(U0LSR&0x20)) {}
+ 112              	
+ 113              	
+ 114              	@line 34,55	
+ARM GAS  L:\Final year project 2011 amit\UART0.asm 			page 3
+
+
+ 115              	L.6:
+ 116              	
+ 117              	@line 34,9	
+ 118 009c 58409FE5 		ldr	R4, LIT.putchar0+0
+ 119 00a0 004094E5 		ldr	R4,[R4]
+ 120 00a4 2050A0E3 		mov	R5, #32
+ 121              	
+ 122 00a8 054004E0 		and R4, R4, R5
+ 123 00ac 0050A0E3 		mov	R5, #0
+ 124              	
+ 125 00b0 050054E1 		cmp	R4,R5
+ 126 00b4 2500000A 		beq	L.5
+ 127              	
+ 128              	@line 37,0			U0THR='\r';
+ 129              	
+ 130 00b8 40409FE5 		ldr	R4, LIT.putchar0+4
+ 131 00bc 0D50A0E3 		mov	R5, #13
+ 132              	
+ 133 00c0 005084E5 		str	R5, [R4]
+ 134              	
+ 135              	@line 38,1		}
+ 136              	
+ 137              	L.8:
+ 138              	
+ 139              	@line 41,53		while (!(U0LSR&0x20)) {}
+ 140              	
+ 141              	
+ 142              	@line 41,54	
+ 143              	L.9:
+ 144              	
+ 145              	@line 41,8	
+ 146 00c4 30409FE5 		ldr	R4, LIT.putchar0+0
+ 147 00c8 004094E5 		ldr	R4,[R4]
+ 148 00cc 2050A0E3 		mov	R5, #32
+ 149              	
+ 150 00d0 054004E0 		and R4, R4, R5
+ 151 00d4 0050A0E3 		mov	R5, #0
+ 152              	
+ 153 00d8 050054E1 		cmp	R4,R5
+ 154 00dc 2F00000A 		beq	L.8
+ 155              	
+ 156              	@line 43,0		U0THR=ch;
+ 157              	
+ 158 00e0 18409FE5 		ldr	R4, LIT.putchar0+4
+ 159 00e4 005CA0E1 		mov	R5,R0,lsl #8*(4-1)
+ 160 00e8 455CA0E1 		mov	R5,R5,asr #8*(4-1)
+ 161 00ec 005084E5 		str	R5, [R4]
+ 162              	
+ 163              	@line 45,8		return ch;
+ 164              	
+ 165 00f0 000CA0E1 		mov	R0,R0,lsl #8*(4-1)
+ 166 00f4 400CA0E1 		mov	R0,R0,asr #8*(4-1)
+ 167              	L.2:
+ 168 00f8 30A89BE8 		ldmfd	R11, {R4, R5, R11, sp, pc}
+ 169              	
+ 170              		.p2align 2
+ 171              	LIT.putchar0:
+ARM GAS  L:\Final year project 2011 amit\UART0.asm 			page 4
+
+
+ 172 00fc 14C000E0 		.word 0xE000C014
+ 173 0100 00C000E0 		.word 0xE000C000
+ 174              	
+ 175              	
+ 176              	
+ 177              		.global getchar
+ 178              		@------------- locals ---------------------
+ 179              		@ch -- R11 - (1)
+ 180              	
+ 181              		.p2align 2
+ 182              	
+ 183              		.text
+ 184              	getchar:
+ 185 0104 0DC0A0E1 		mov	R12, sp
+ 186 0108 30582DE9 		stmfd	sp!, {R4, R5, R11, R12, lr}
+ 187 010c 0DB0A0E1 		mov R11,R13
+ 188 0110 04D04DE2 		sub	sp, sp, #1 * 4
+ 189              	
+ 190              	@line 49,0	{
+ 191              	
+ 192              	L.12:
+ 193              	
+ 194              	@line 53,53		while (!(U0LSR&0x01)) {}
+ 195              	
+ 196              	
+ 197              	@line 53,54	
+ 198              	L.13:
+ 199              	
+ 200              	@line 53,8	
+ 201 0114 28409FE5 		ldr	R4, LIT.getchar0+0
+ 202 0118 004094E5 		ldr	R4,[R4]
+ 203 011c 0150A0E3 		mov	R5, #1
+ 204              	
+ 205 0120 054004E0 		and R4, R4, R5
+ 206 0124 0050A0E3 		mov	R5, #0
+ 207              	
+ 208 0128 050054E1 		cmp	R4,R5
+ 209 012c 4300000A 		beq	L.12
+ 210              	
+ 211              	@line 56,1		ch=U0RBR;
+ 212              	
+ 213 0130 10409FE5 		ldr	R4, LIT.getchar0+4
+ 214 0134 004094E5 		ldr	R4,[R4]
+ 215 0138 01404BE5 		strb	R4, [R11, #-1]
+ 216              	
+ 217              	@line 57,8		return ch;
+ 218              	
+ 219 013c D1005BE1 		ldrsb	R0,[R11, #-1]
+ 220              	L.11:
+ 221 0140 30A89BE8 		ldmfd	R11, {R4, R5, R11, sp, pc}
+ 222              	
+ 223              		.p2align 2
+ 224              	LIT.getchar0:
+ 225 0144 14C000E0 		.word 0xE000C014
+ 226 0148 00C000E0 		.word 0xE000C000
+ 227              	
+ 228              	
+ARM GAS  L:\Final year project 2011 amit\UART0.asm 			page 5
+
+

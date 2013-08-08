@@ -1,0 +1,130 @@
+ARM GAS  D:\Final year project 2011 amit\LCD.c 			page 1
+
+
+   1              	/*
+   2              		This file contains LCD related sub-routines for MiniARM-2124 and MiniARM-2138.
+   3              	
+   4              		LCD connections:
+   5              		P0.20	P0.22	P0.19	P0.18	P0.17	P0.16
+   6              		RS		EN		D7		D6		D5		D4
+   7              		4 bit interface is used.
+   8              	*/
+   9              	
+  10              	#include <Philips\LPC2148.h>
+  11              	
+  12              	void SmallDelay (void)
+  13              	{
+  14              	/*
+  15              		does nothing, but produces small delay due to call and return instructions
+  16              	*/
+  17              	}
+  18              	void LcdCmd1 (unsigned char cmd)
+  19              	{
+  20              		unsigned int temp ;
+  21              	
+  22              		IO0SET = temp = 0x0F0000 & (cmd << 16) ;
+  23              		IO0CLR = (temp ^ 0x0F0000) | 0x500000 ;
+  24              	
+  25              		SmallDelay() ;
+  26              		//IO0SET = 0x800000 ;
+  27              		IO0SET = 0x400000 ;
+  28              		SmallDelay() ;
+  29              		//IO0CLR = 0x800000 ;
+  30              		IO0CLR = 0x400000 ;
+  31              		SmallDelay() ;
+  32              	}
+  33              	void LcdDat1 (unsigned char dat)
+  34              	{
+  35              		unsigned int temp ;
+  36              	
+  37              		IO0SET = temp = (0x0F0000 & (dat << 16)) | 0x100000 ;
+  38              		IO0CLR = (temp ^ 0x1F0000) | 0x400000 ;
+  39              	
+  40              		SmallDelay() ;
+  41              		//IO0SET = 0x800000 ;
+  42              		IO0SET = 0x400000 ;
+  43              		SmallDelay() ;
+  44              		//IO0CLR = 0x800000 ;
+  45              		IO0CLR = 0x400000 ;
+  46              		SmallDelay() ;
+  47              	}
+  48              	void Delay250 (void)
+  49              	{
+  50              		int k ;
+  51              		for(k = 0 ; k < 100 ; k ++)
+  52              		{
+  53              		}
+  54              	}
+  55              	void DelayMs (int n)
+  56              	{
+  57              		int k ;
+ARM GAS  D:\Final year project 2011 amit\LCD.c 			page 2
+
+
+  58              		for(k = 0 ; k < n ; k ++)
+  59              		{
+  60              			Delay250() ;
+  61              			Delay250() ;
+  62              			Delay250() ;
+  63              			Delay250() ;
+  64              		}
+  65              	}
+  66              	void LcdCmd (unsigned char cmd)
+  67              	{
+  68              		LcdCmd1(cmd >> 4) ;
+  69              		LcdCmd1(cmd) ;
+  70              		Delay250() ;
+  71              	}
+  72              	void LcdDat (unsigned char dat)
+  73              	{
+  74              		LcdDat1(dat >> 4) ;
+  75              		LcdDat1(dat) ;
+  76              		Delay250() ;
+  77              	}
+  78              	void LcdInit (void)
+  79              	{
+  80              		IO0DIR = 0x5F0000 ;
+  81              		IO0CLR = 0x5F0000 ;
+  82              		DelayMs(15) ;
+  83              		LcdCmd1(0x03) ;
+  84              		DelayMs(6) ;
+  85              		LcdCmd1(0x03) ;
+  86              		Delay250() ;
+  87              		LcdCmd1(0x03) ;
+  88              		Delay250() ;
+  89              		LcdCmd1(0x02) ;
+  90              		Delay250() ;
+  91              	
+  92              		LcdCmd(0x28) ;
+  93              		LcdCmd(0x08) ;
+  94              		LcdCmd(0x0c) ;
+  95              		LcdCmd(0x06) ;
+  96              	}
+  97              	void DisplayRow (int row, char *str)
+  98              	{
+  99              	/*
+ 100              		pass pointer to 16 character string
+ 101              		displayes the message on line1 or line2 of LCD, depending on whether row is 1 or 2.
+ 102              	*/
+ 103              		int k ;
+ 104              	
+ 105              		if (row == 1)
+ 106              			LcdCmd(0x80) ;
+ 107              		else
+ 108              			LcdCmd(0xc0) ;
+ 109              		for(k = 0 ; k < 16 ; k ++)
+ 110              		{
+ 111              			if (str[k])
+ 112              				LcdDat(str[k]) ;
+ 113              			else
+ 114              				break ;
+ARM GAS  D:\Final year project 2011 amit\LCD.c 			page 3
+
+
+ 115              		}
+ 116              		while(k < 16)
+ 117              		{
+ 118              			LcdDat(' ') ;
+ 119              			k ++ ;
+ 120              		}
+ 121              	}

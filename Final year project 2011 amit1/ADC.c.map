@@ -1,0 +1,265 @@
+Archive member included because of file (symbol)
+
+C:\SCARM\Lib\scarm1.lib(printf.obj)
+                              L:\Final year project 2011 amit\ADC.c.obj (printf)
+C:\SCARM\Lib\scarm1.lib(cvFD.obj)
+                              L:\Final year project 2011 amit\ADC.c.obj (cvFD)
+C:\SCARM\Lib\scarm1.lib(dtoa.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (dtoa)
+C:\SCARM\Lib\scarm1.lib(FloatCmp.obj)
+                              L:\Final year project 2011 amit\ADC.c.obj (cmpF4)
+C:\SCARM\Lib\scarm1.lib(cmp8.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (cmpF8)
+C:\SCARM\Lib\scarm1.lib(DFloatDiv.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (divF8)
+C:\SCARM\Lib\scarm1.lib(DFloatMul.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (mulF8)
+C:\SCARM\Lib\scarm1.lib(DFloatSub.obj)
+                              C:\SCARM\Lib\scarm1.lib(cmp8.obj) (subF8)
+C:\SCARM\Lib\scarm1.lib(math.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (fabs)
+C:\SCARM\Lib\scarm1.lib(isdigit.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (isdigit)
+C:\SCARM\Lib\scarm1.lib(strcat.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (strcat)
+C:\SCARM\Lib\scarm1.lib(strlen.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (strlen)
+C:\SCARM\Lib\scarm1.lib(strtoul.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (strtoul)
+C:\SCARM\Lib\scarm1.lib(toupper.obj)
+                              C:\SCARM\Lib\scarm1.lib(strtoul.obj) (toupper)
+C:\SCARM\Lib\scarm1.lib(divU4.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (divU4)
+C:\SCARM\Lib\scarm1.lib(itoa.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (itoa)
+C:\SCARM\Lib\scarm1.lib(utoa.obj)
+                              C:\SCARM\Lib\scarm1.lib(printf.obj) (utoa)
+C:\SCARM\Lib\scarm1.lib(FloatSub.obj)
+                              C:\SCARM\Lib\scarm1.lib(FloatCmp.obj) (subF4)
+C:\SCARM\Lib\scarm1.lib(cvID.obj)
+                              C:\SCARM\Lib\scarm1.lib(math.obj) (cvIF8)
+C:\SCARM\Lib\scarm1.lib(cvDI.obj)
+                              C:\SCARM\Lib\scarm1.lib(math.obj) (cvFI8)
+C:\SCARM\Lib\scarm1.lib(strtod.obj)
+                              C:\SCARM\Lib\scarm1.lib(dtoa.obj) (div10)
+C:\SCARM\Lib\scarm1.lib(DFloatAdd.obj)
+                              C:\SCARM\Lib\scarm1.lib(math.obj) (addF8)
+C:\SCARM\Lib\scarm1.lib(isspace.obj)
+                              C:\SCARM\Lib\scarm1.lib(strtoul.obj) (isspace)
+C:\SCARM\Lib\scarm1.lib(puts.obj)
+                              C:\SCARM\Lib\scarm1.lib(divU4.obj) (puts)
+C:\SCARM\Lib\scarm1.lib(strtof.obj)
+                              C:\SCARM\Lib\scarm1.lib(strtod.obj) (readnum)
+C:\SCARM\Lib\scarm1.lib(FloatAdd.obj)
+                              C:\SCARM\Lib\scarm1.lib(FloatSub.obj) (FloatAdd)
+
+Allocating common symbols
+Common symbol       size              file
+
+g_usADCData         0x2               L:\Final year project 2011 amit\ADC.c.obj
+g_uiRefRead         0x4               L:\Final year project 2011 amit\ADC.c.obj
+g_uiTempRead        0x4               L:\Final year project 2011 amit\ADC.c.obj
+g_uiReading         0x4               L:\Final year project 2011 amit\ADC.c.obj
+PrevTempRead        0x4               L:\Final year project 2011 amit\ADC.c.obj
+g_uiNum             0x4               L:\Final year project 2011 amit\ADC.c.obj
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+rom              0x00000000         0x00080000         xr
+ram              0x40000000         0x00008000         !xr
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00000000     0x6090
+ startup.obj(.text)
+ .text          0x00000000       0xac startup.obj
+ *(.text)
+ .text          0x000000ac     0x1614 L:\Final year project 2011 amit\ADC.c.obj
+                0x00000a0c                Tempr
+                0x000013a0                ADC_GetAdcReading
+                0x000000ac                Reading
+                0x00001444                main
+                0x00001408                delay
+                0x0000136c                ADC_Init
+ .text          0x000016c0      0x37c L:\Final year project 2011 amit\LCD.obj
+                0x0000182c                DelayMs
+                0x000017f4                Delay250
+                0x000018b4                LcdDat
+                0x00001878                LcdCmd
+                0x00001984                DisplayRow
+                0x00001758                LcdDat1
+                0x000016c4                LcdCmd1
+                0x000018f0                LcdInit
+                0x000016c0                SmallDelay
+ .text          0x00001a3c      0x14c L:\Final year project 2011 amit\UART0.obj
+                0x00001ab8                putchar
+                0x00001a3c                InitUart0
+                0x00001b40                getchar
+ .text          0x00001b88      0xf98 C:\SCARM\Lib\scarm1.lib(printf.obj)
+                0x00001b88                printf
+                0x000029bc                vxappendchar
+                0x00002ad8                vxappendnull
+                0x00002790                vxprintbase
+                0x00002a24                vxappendstring
+                0x00001bc8                sprintf
+                0x00001c08                vxprintf
+                0x000025f4                vxprintsci
+ .text          0x00002b20       0x4c C:\SCARM\Lib\scarm1.lib(cvFD.obj)
+                0x00002b20                cvFD
+ .text          0x00002b6c      0x22c C:\SCARM\Lib\scarm1.lib(dtoa.obj)
+                0x00002b88                real_dtoa
+                0x00002b6c                dtoa
+ .text          0x00002d98       0x28 C:\SCARM\Lib\scarm1.lib(FloatCmp.obj)
+                0x00002d98                cmpF4
+ .text          0x00002dc0       0x60 C:\SCARM\Lib\scarm1.lib(cmp8.obj)
+                0x00002dc0                cmpF8
+ .text          0x00002e20      0x310 C:\SCARM\Lib\scarm1.lib(DFloatDiv.obj)
+                0x00002e20                divF8
+ .text          0x00003130      0x278 C:\SCARM\Lib\scarm1.lib(DFloatMul.obj)
+                0x00003130                mulF8
+ .text          0x000033a8       0x5c C:\SCARM\Lib\scarm1.lib(DFloatSub.obj)
+                0x000033a8                subF8
+ .text          0x00003404     0x1fd8 C:\SCARM\Lib\scarm1.lib(math.obj)
+                0x000052e8                fabs
+                0x00004c90                log
+                0x00004e8c                sqrt
+                0x00004318                cosh
+                0x00004ef8                ceil
+                0x00004fc4                floor
+                0x00005090                ldexp
+                0x000051d0                modf
+                0x00005240                fmod
+                0x000036dc                cos
+                0x000044e4                tanh
+                0x00003404                sin
+                0x00004e24                pow
+                0x00004150                sinh
+                0x00004ad4                log10
+                0x0000487c                mylog10
+                0x00004738                exp
+                0x00003a20                tan
+                0x00003a98                asin
+                0x00003ddc                acos
+                0x00005118                frexp
+ .text          0x000053dc       0x20 C:\SCARM\Lib\scarm1.lib(isdigit.obj)
+                0x000053dc                isdigit
+ .text          0x000053fc       0x28 C:\SCARM\Lib\scarm1.lib(strcat.obj)
+                0x000053fc                strcat
+ .text          0x00005424       0x20 C:\SCARM\Lib\scarm1.lib(strlen.obj)
+                0x00005424                strlen
+ .text          0x00005444       0xa0 C:\SCARM\Lib\scarm1.lib(strtoul.obj)
+                0x00005444                strtoul
+ .text          0x000054e4       0x18 C:\SCARM\Lib\scarm1.lib(toupper.obj)
+                0x000054e4                toupper
+ .text          0x000054fc       0x90 C:\SCARM\Lib\scarm1.lib(divU4.obj)
+                0x00005554                modU4
+                0x000054fc                divU
+                0x000054fc                divU4
+ .text          0x0000558c       0x7c C:\SCARM\Lib\scarm1.lib(itoa.obj)
+                0x0000558c                itoa
+                0x000055a8                itoa0
+ .text          0x00005608        0xc C:\SCARM\Lib\scarm1.lib(utoa.obj)
+                0x00005608                utoa
+ .text          0x00005614       0x2c C:\SCARM\Lib\scarm1.lib(FloatSub.obj)
+                0x00005614                subF4
+ .text          0x00005640       0x54 C:\SCARM\Lib\scarm1.lib(cvID.obj)
+                0x00005640                cvIF8
+ .text          0x00005694       0x68 C:\SCARM\Lib\scarm1.lib(cvDI.obj)
+                0x00005694                cvFI8
+ .text          0x000056fc      0x380 C:\SCARM\Lib\scarm1.lib(strtod.obj)
+                0x000056fc                strtod
+                0x000058ac                div10
+ .text          0x00005a7c      0x260 C:\SCARM\Lib\scarm1.lib(DFloatAdd.obj)
+                0x00005b10                DAddOperand_2
+                0x00005a7c                addF8
+                0x00005ad4                DAddOperand_1
+                0x00005b4c                DFloatAdd
+ .text          0x00005cdc       0x28 C:\SCARM\Lib\scarm1.lib(isspace.obj)
+                0x00005cdc                isspace
+ .text          0x00005d04       0x2c C:\SCARM\Lib\scarm1.lib(puts.obj)
+                0x00005d04                puts
+ .text          0x00005d30      0x23c C:\SCARM\Lib\scarm1.lib(strtof.obj)
+                0x00005e5c                readnum
+                0x00005d30                strtof
+ .text          0x00005f6c       0xdc C:\SCARM\Lib\scarm1.lib(FloatAdd.obj)
+                0x00005f6c                addF4
+                0x00005f90                FloatAdd
+                0x00006048                . = ALIGN (0x4)
+                0x00006048                __initdata_start__ = .
+ *(.initdata)
+ .initdata      0x00006048       0x48 L:\Final year project 2011 amit\ADC.c.obj
+                0x00006090                . = ALIGN (0x4)
+                0x00006090                __initdata_end__ = .
+
+.glue_7         0x00006090        0x0
+
+.glue_7t        0x00006090        0x0
+
+.data           0x40000000        0x0
+                0x40000000                datastart = .
+                0x40000000                __data_start__ = .
+ *(.data)
+                0x40000000                . = ALIGN (0x4)
+                0x40000000                __data_end__ = .
+
+.bss            0x40000000       0x48
+                0x40000000                __bss_start__ = .
+ *(.bss)
+ .bss           0x40000000       0x30 L:\Final year project 2011 amit\ADC.c.obj
+                0x40000018                line1
+                0x40000028                g_byRecords
+                0x40000000                g_uiRawReading
+                0x40000008                line2
+ *(COMMON)
+ COMMON         0x40000030       0x18 L:\Final year project 2011 amit\ADC.c.obj
+                                  0x0 (size before relaxing)
+                0x40000030                g_usADCData
+                0x40000034                g_uiRefRead
+                0x40000038                g_uiTempRead
+                0x4000003c                g_uiReading
+                0x40000040                PrevTempRead
+                0x40000044                g_uiNum
+                0x40000048                . = ALIGN (0x4)
+                0x40000048                __bss_end__ = .
+                0x40000048                _stack_bottom = .
+                0x40000048                end = .
+                0x40000048                _end = .
+                0x40000048                __end__ = .
+                0x40007ffc                _stack_top = 0x40007ffc
+                0x40007bfc                _irq_stack_top = 0x40007bfc
+LOAD L:\Final year project 2011 amit\ADC.c.obj
+LOAD L:\Final year project 2011 amit\LCD.obj
+LOAD L:\Final year project 2011 amit\UART0.obj
+LOAD C:\SCARM\Lib\scarm1.lib
+OUTPUT(L:\Final year project 2011 amit\ADC.c.elf elf32-littlearm)
+
+.debug_line     0x00000000      0x361
+ .debug_line    0x00000000       0x7e startup.obj
+ .debug_line    0x0000007e      0x104 L:\Final year project 2011 amit\ADC.c.obj
+ .debug_line    0x00000182      0x137 L:\Final year project 2011 amit\LCD.obj
+ .debug_line    0x000002b9       0xa8 L:\Final year project 2011 amit\UART0.obj
+
+.debug_info     0x00000000      0x1e4
+ .debug_info    0x00000000       0x7b startup.obj
+ .debug_info    0x0000007b       0x79 L:\Final year project 2011 amit\ADC.c.obj
+ .debug_info    0x000000f4       0x77 L:\Final year project 2011 amit\LCD.obj
+ .debug_info    0x0000016b       0x79 L:\Final year project 2011 amit\UART0.obj
+
+.debug_abbrev   0x00000000       0x50
+ .debug_abbrev  0x00000000       0x14 startup.obj
+ .debug_abbrev  0x00000014       0x14 L:\Final year project 2011 amit\ADC.c.obj
+ .debug_abbrev  0x00000028       0x14 L:\Final year project 2011 amit\LCD.obj
+ .debug_abbrev  0x0000003c       0x14 L:\Final year project 2011 amit\UART0.obj
+
+.debug_aranges  0x00000000       0x80
+ .debug_aranges
+                0x00000000       0x20 startup.obj
+ .debug_aranges
+                0x00000020       0x20 L:\Final year project 2011 amit\ADC.c.obj
+ .debug_aranges
+                0x00000040       0x20 L:\Final year project 2011 amit\LCD.obj
+ .debug_aranges
+                0x00000060       0x20 L:\Final year project 2011 amit\UART0.obj

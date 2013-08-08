@@ -1,0 +1,97 @@
+ARM GAS  D:\Final year project 2011 amit\startup.asm 			page 1
+
+
+   1              	/*
+   2              		startup.asm
+   3              		Revison 1.1, dated 9 August 2005.
+   4              	*/
+   5              	
+   6              	.section .text
+   7              	.code 32
+   8              	@.globl vectors
+   9              	
+  10              	vectors:
+  11 0000 060000EA 		b reset			@ Reset
+  12 0004 FFFFFFEA 		b .			@ Undefined instruction
+  13 0008 000000EA 		b .			@ SWI
+  14 000c 010000EA 		b .			@ Prefetch abort
+  15 0010 020000EA 		b .			@ Data abort
+  16 0014 030000EA 		b .			@ reserved vector
+  17              	@ The following instruction should transfer control to
+  18              	@ the vector corresponding to ISR of IRQ
+  19              	@ Most ARM micro-controllers include a built-in
+  20              	@ Interrupt Controller. One example is the LPC2138.
+  21              	@ It includes the VIC interrupt controller.
+  22              	@ It will automatically put appropriate jump address
+  23              	@ into the register "VICVectAddr" - provided the VIC
+  24              	@ is configured appropriately by the user.
+  25              	@ So the following instruction simply copies the contents
+  26              	@ of "VICVectAddr" into PC.
+  27              	@ This instruction is appropriate, if you are using
+  28              	@ LPC2138 micro-controller (or it's cousins)
+  29              	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  30              	@ NOTE: You may need to change the following instruction
+  31              	@ to make it work correctly for other ARM micro-controllers.
+  32              	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  33 0018 F0FF1FE5 		ldr	pc,[pc,#-0xFF0]	@ irqs (to VICVectAddr)
+  34 001c 050000EA 		b .			@ fast irqs
+  35              	
+  36              	
+  37              	reset:
+  38              	@ clear .bss section
+  39 0020 74109FE5 		ldr r1, bss_start
+  40 0024 74209FE5 		ldr r2, bss_end
+  41 0028 0030A0E3 		ldr r3, =0
+  42              	
+  43              	clear_bss:
+  44 002c 020051E1 		cmp r1,r2
+  45 0030 04308114 		strne r3,[r1],#+4
+  46 0034 0900001A 		bne clear_bss
+  47              	
+  48              	do_init:
+  49 0038 64109FE5 		ldr	r1,initdata_start	@ start address of init table
+  50 003c 64209FE5 		ldr	r2,initdata_end		@ end address of init table
+  51 0040 020051E1 	do1init:cmp	r1,r2
+  52 0044 1900002A 		bhs	init_done
+  53 0048 040091E4 		ldr	r0,[r1],#4	@ destination address
+  54 004c 043091E4 		ldr	r3,[r1],#4	@ number of bytes to copy
+  55              	copy_loop:
+  56 0050 0140D1E4 		ldrb	r4,[r1],#1	@ read 1 byte from source
+  57 0054 0140C0E4 		strb	r4,[r0],#1	@ write 1 byte to destination
+ARM GAS  D:\Final year project 2011 amit\startup.asm 			page 2
+
+
+  58 0058 013053E2 		subs	r3,r3,#1
+  59 005c 1200001A 		bne	copy_loop
+  60              	@ now align the address in R1 to 4 bytes boundry
+  61 0060 031081E2 		add	r1,r1,#3
+  62 0064 0310C1E3 		and	r1,r1,#~3
+  63 0068 0E0000EA 		b	do1init
+  64              	init_done:
+  65              	@ init sp for supervisor (default) mode
+  66 006c 20D09FE5 		ldr	r13,stack_pointer
+  67              	
+  68              	@ init sp for IRQ mode
+  69 0070 00000FE1 		mrs	r0,cpsr
+  70 0074 1F10C0E3 		bic	r1,r0,#0x1F
+  71 0078 121081E3 		orr	r1,r1,#0x012	@ IRQ mode= 0x12
+  72 007c 01F021E1 		msr	cpsr_c,r1
+  73 0080 10D09FE5 		ldr	r13,irq_stack
+  74              	
+  75              	@  enable IRQs & return to supervisor mode
+  76 0084 8000C0E3 		bic	r0,r0,#0x80	@ cpsr[7]=IRQ disable flag
+  77 0088 00F021E1 		msr	cpsr_c,r0
+  78              	
+  79              	@ run C program
+  80              	
+  81 008c FEFFFFEB 		bl main
+  82              	
+  83 0090 220000EA 	here:	b here
+  84              	
+  85 0094 00000000 	stack_pointer:	.word	_stack_top
+  86 0098 00000000 	irq_stack:	.word	_irq_stack_top
+  87 009c 00000000 	bss_start:	.word	__bss_start__
+  88 00a0 00000000 	bss_end:	.word	__bss_end__
+  89 00a4 00000000 	initdata_start:	.word	__initdata_start__
+  90 00a8 00000000 	initdata_end:	.word	__initdata_end__
+  91              		.end
